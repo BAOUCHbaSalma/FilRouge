@@ -20,9 +20,9 @@ public class Restaurant {
     @Column
     private String ville;
     @Column
-    private String lat;
+    private double latitude;
     @Column
-    private String lon;
+    private double longitude;
 
     @ManyToOne
     @JoinColumn(name = "idMerchant")
