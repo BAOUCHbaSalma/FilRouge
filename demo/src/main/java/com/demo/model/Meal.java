@@ -9,30 +9,33 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Restaurant {
+@Entity
+public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idRestaurant;
-
+    private Integer id;
     @Column
-    private String ville;
+    private String name;
     @Column
-    private double latitude;
+    private String picture;
     @Column
-    private double longitude;
-
+    private Integer price;
+    @Column
+    private Integer quantity;
     @ManyToOne
-    @JoinColumn(name = "idMerchant")
-    private Merchant merchant;
+    @JoinColumn(name = "restaurantId")
+    private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "meal")
     @JsonIgnore
-    private List<Meal> mealList;
+    private List<OrderUser> orderList;
+
+    @OneToMany(mappedBy = "meal")
+    @JsonIgnore
+    private List<Reaction> reactionList;
 
 }

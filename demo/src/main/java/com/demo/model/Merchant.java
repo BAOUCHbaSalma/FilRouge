@@ -22,4 +22,7 @@ public class Merchant extends Person {
     @OneToMany(mappedBy = "merchant")
     @JsonIgnore
     private List<Restaurant> restaurantList;
+    @OneToMany(mappedBy = "merchant")
+    @JsonIgnore
+    private List<Message> messageList;
 }
