@@ -30,5 +30,26 @@ public class RestaurantService {
         return restaurantRepository.findAllByMerchant_Id(idMerchant);
     }
 
+    public List<Restaurant> findAllRestaurants(){
+        return restaurantRepository.findAll();
+    }
+
+    public void deleteRestaurant(Integer id){
+         restaurantRepository.deleteById(id);
+    }
+
+    public Restaurant findById(Integer id){
+        return restaurantRepository.findById(id).orElseThrow();
+    }
+
+    public Restaurant updateRestaurant(Integer idRestaurant,Restaurant restaurant){
+        Restaurant restaurant1=findById(idRestaurant);
+        restaurant1.setLatitude(restaurant.getLatitude());
+        restaurant1.setLongitude(restaurant.getLongitude());
+        restaurant1.setVille(restaurant.getVille());
+
+        return restaurantRepository.save(restaurant1);
+    }
+
 
 }
