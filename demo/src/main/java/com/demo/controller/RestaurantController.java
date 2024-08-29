@@ -31,4 +31,17 @@ public class RestaurantController {
     public List<Restaurant> findAllRestaurants(){
         return restaurantService.findAllRestaurants();
     }
+    @GetMapping("/restaurants/{idm}")
+    public List<Restaurant> findRestaurantsMerchant(@PathVariable Integer idm){
+        return restaurantService.findRestaurantsMerchant(idm);
+    }
+    @DeleteMapping("/restaurants/{id}")
+    public void deleteResaurants(@PathVariable Integer id){
+        restaurantService.deleteRestaurant(id);
+    }
+
+    @PutMapping("/restaurants/{id}")
+    public Restaurant updateRestaurant(@PathVariable Integer id,@RequestBody Restaurant restaurant){
+        return restaurantService.updateRestaurant(id,restaurant);
+    }
 }
