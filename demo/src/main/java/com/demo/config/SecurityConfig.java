@@ -38,6 +38,7 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(expressionInterceptUrlRegistry ->
                         expressionInterceptUrlRegistry
                                .requestMatchers("/registre").permitAll()
+                                .requestMatchers("/login").permitAll()
                                 .anyRequest().authenticated()
 
                 )
