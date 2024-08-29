@@ -46,6 +46,7 @@ public class RestaurantService {
         Restaurant restaurant1=findById(idRestaurant);
         restaurant1.setLatitude(restaurant.getLatitude());
         restaurant1.setLongitude(restaurant.getLongitude());
+        restaurant1.setName(restaurant.getName());
         restaurant1.setVille(restaurant.getVille());
 
         return restaurantRepository.save(restaurant1);

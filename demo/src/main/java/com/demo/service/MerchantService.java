@@ -15,4 +15,8 @@ public class MerchantService {
     public Merchant findById(Integer id){
         return merchantRepository.findById(id).orElseThrow();
     }
+
+    public Merchant addMerchant(Merchant merchant){
+        return merchantRepository.save(merchant);
+    }
 }
