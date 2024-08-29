@@ -15,5 +15,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
             @Param("longitude") double longitude,
             @Param("distance") double distance
     );
+
+    List<Restaurant> findAllByMerchant_Id(Integer id);
     }
 
