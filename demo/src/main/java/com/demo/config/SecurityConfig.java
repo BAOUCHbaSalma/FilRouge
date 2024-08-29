@@ -39,6 +39,8 @@ public class SecurityConfig  {
                         expressionInterceptUrlRegistry
                                .requestMatchers("/registre").permitAll()
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/merin/**").hasAnyRole(Erole.MERCHANT.name(),Erole.ADMIN.name())
+                                .requestMatchers("/usein").hasAnyRole(Erole.ADMIN.name(),Erole.USER.name())
                                 .anyRequest().authenticated()
 
                 )
