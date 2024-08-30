@@ -18,7 +18,7 @@ public class MealController {
     public List<Meal> findMealRestaurant(@PathVariable Integer id){
         return mealService.findMealRestaurant(id);
     }
-    @GetMapping("meals/all")
+    @GetMapping("usein/meals/all")
     public List<Meal> findAll(){
         return mealService.findAll();
     }
@@ -28,17 +28,17 @@ public class MealController {
         return mealService.findById(id);
     }
 
-    @PostMapping("meals/{id}")
-    public Meal addMeal(@PathVariable Integer id,Meal meal){
+    @PostMapping("merin/meals/{id}")
+    public Meal addMeal(@PathVariable Integer id,@RequestBody Meal meal){
         return mealService.addMeal(id,meal);
     }
 
-    @DeleteMapping("meals/{id}")
+    @DeleteMapping("merin/meals/{id}")
     public void deleteMeal(@PathVariable Integer id){
          mealService.deleteMeal(id);
     }
 
-    @PutMapping("meals/{id}")
+    @PutMapping("merin/meals/{id}")
     public Meal updateMeal(@PathVariable Integer id,@RequestBody Meal meal){
         return mealService.updateMeal(id,meal);
     }

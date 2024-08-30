@@ -24,8 +24,8 @@ public class Meal {
     private String picture;
     @Column
     private Integer price;
-    @Column
-    private Integer availability;
+    @Enumerated(EnumType.STRING)
+    private EAvailability availability;
     @Column
     private Integer quantity;
     @ManyToOne
