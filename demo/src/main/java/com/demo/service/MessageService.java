@@ -15,12 +15,10 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
-    @Autowired
-    private UserService userService;
 
-    public Message addMessage(Integer idUser ,Message message){
-        User user=userService.findById(idUser);
-        message.setUser(user);
+
+    public Message addMessage(Message message){
+
         return messageRepository.save(message);
     }
 
