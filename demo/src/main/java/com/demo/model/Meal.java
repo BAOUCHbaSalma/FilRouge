@@ -25,6 +25,8 @@ public class Meal {
     @Column
     private Integer price;
     @Column
+    private Integer availability;
+    @Column
     private Integer quantity;
     @ManyToOne
     @JoinColumn(name = "restaurantId")
