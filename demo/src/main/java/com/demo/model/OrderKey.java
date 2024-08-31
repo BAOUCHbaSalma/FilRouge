@@ -16,6 +16,11 @@ public class OrderKey implements Serializable {
     @Column
     private Integer userId;
 
+    public OrderKey(Integer orderId, Integer mealId, Integer userId) {
+        this.orderId = orderId;
+        this.mealId = mealId;
+        this.userId = userId;
+    }
 
     public OrderKey() {}
 
