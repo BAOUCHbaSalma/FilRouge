@@ -1,5 +1,6 @@
 package com.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +26,6 @@ public class Reaction {
 
     @ManyToOne
     @JoinColumn(name = "mealId")
+    @JsonBackReference
     private Meal meal;
 }

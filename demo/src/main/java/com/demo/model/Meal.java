@@ -1,6 +1,7 @@
 package com.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +38,7 @@ public class Meal {
     private List<OrderUser> orderList;
 
     @OneToMany(mappedBy = "meal")
-    @JsonIgnore
+    @JsonManagedReference
     private List<Reaction> reactionList;
 
 }

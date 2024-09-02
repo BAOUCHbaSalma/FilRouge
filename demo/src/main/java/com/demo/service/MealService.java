@@ -2,6 +2,7 @@ package com.demo.service;
 
 
 import com.demo.model.Meal;
+import com.demo.model.Reaction;
 import com.demo.model.Restaurant;
 import com.demo.repository.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class MealService {
     private MealRepository mealRepository;
     @Autowired
     private RestaurantService restaurantService;
+    @Autowired
+    private ReactionService reactionService;
 
 
     public Meal addMeal(Integer idRestaurant,Meal meal){
@@ -30,6 +33,12 @@ public class MealService {
     }
 
     public List<Meal> findAll(){
+//       List<Meal> mealList=mealRepository.findAll();
+//       for (Meal meal:mealList){
+//           List<Reaction> reaction=reactionService.findReactionMeal(meal.getId());
+//           meal.setReactionList(reaction);
+//       }
+//       return mealList;
         return mealRepository.findAll();
 
     }
