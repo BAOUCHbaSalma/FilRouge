@@ -1,6 +1,7 @@
 package com.demo.controller;
 
 import com.demo.dto.OrderUserDto;
+import com.demo.dto.OrderUserInsertionDto;
 import com.demo.model.OrderKey;
 import com.demo.model.OrderUser;
 import com.demo.service.OrderUserService;
@@ -17,18 +18,34 @@ public class OrderUserController {
     private OrderUserService orderUserService;
 
 
+//    @PostMapping("usein/orders")
+//    public OrderUser passOrder(@RequestBody OrderUser orderUser){
+//        return orderUserService.passeCommande(orderUser);
+//    }
+
     @PostMapping("usein/orders")
-    public OrderUser passOrder(@RequestBody OrderUser orderUser){
-        return orderUserService.passeCommande(orderUser);
+    public OrderUser passOrder(@RequestBody OrderUserInsertionDto dto){
+        return orderUserService.passeCommande(dto);
     }
 
-    @GetMapping("merchant/orders/{id}")
-    public OrderUser validationCommande(@PathVariable OrderKey id){
-        return orderUserService.validationCommande(id);
-    }
+//    @GetMapping("merchant/orders/{id}")
+//    public OrderUser validationCommande(@PathVariable OrderKey id){
+//        return orderUserService.validationCommande(id);
+//    }
+//
+//    @GetMapping("merin/orders/{id}")
+//    public OrderUser cancelCommande(@PathVariable OrderKey id){
+//        return orderUserService.cancelCommande(id);
+//    }
+@GetMapping("merchant/orders/validate/{orderId}/{mealId}/{userId}")
+public OrderUser validationCommande(@PathVariable Integer orderId, @PathVariable Integer mealId, @PathVariable Integer userId) {
+    OrderKey id = new OrderKey(orderId, mealId, userId);
+    return orderUserService.validationCommande(id);
+}
 
-    @GetMapping("merin/orders/{id}")
-    public OrderUser cancelCommande(@PathVariable OrderKey id){
+    @GetMapping("merin/orders/cancel/{orderId}/{mealId}/{userId}")
+    public OrderUser cancelCommande(@PathVariable Integer orderId, @PathVariable Integer mealId, @PathVariable Integer userId) {
+        OrderKey id = new OrderKey(orderId, mealId, userId);
         return orderUserService.cancelCommande(id);
     }
 

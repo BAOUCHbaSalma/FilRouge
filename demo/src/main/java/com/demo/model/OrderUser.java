@@ -31,6 +31,8 @@ public class OrderUser {
 
     @Column
     private Integer price;
+    @Column
+    private String address;
 
     @Enumerated(EnumType.STRING)
    private Evalidation validation;

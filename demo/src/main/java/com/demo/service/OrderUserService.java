@@ -2,6 +2,7 @@ package com.demo.service;
 
 import com.demo.Mapper.OrderUserMapper;
 import com.demo.dto.OrderUserDto;
+import com.demo.dto.OrderUserInsertionDto;
 import com.demo.model.*;
 import com.demo.repository.OrderUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +18,52 @@ public class OrderUserService {
     private OrderUserRepository orderUserRepository;
     @Autowired
     private MealService mealService;
+    @Autowired
+    private UserService userService;
 
 
 
-    public OrderUser passeCommande(OrderUser orderUser){
+//    public OrderUser passeCommande(OrderUser orderUser){
+//        Integer id=orderUserRepository.findMaxOrderId()+1;
+//       Integer idMeal=orderUser.getMeal().getId();
+//       Integer idUser=orderUser.getUser().getId();
+//      OrderKey orderKey=new OrderKey(id,idMeal,idUser);
+//      orderUser.setIdOrder(orderKey);
+//      Meal meal=mealService.findById(orderUser.getMeal().getId());
+//      orderUser.setPrice(meal.getPrice()* orderUser.getQuantity());
+//        orderUser.setValidation(Evalidation.PENDING);
+//
+//        if(meal.getQuantity()!=0){
+//          Integer qt=  meal.getQuantity()-orderUser.getQuantity();
+//          meal.setQuantity(qt);
+//          if(meal.getQuantity()==0){
+//              meal.setAvailability(EAvailability.UNAVAILABLE);
+//          }
+//
+//        }
+//        return orderUserRepository.save(orderUser);
+//    }
+
+    public OrderUser passeCommande(OrderUserInsertionDto dto){
+
         Integer id=orderUserRepository.findMaxOrderId()+1;
-       Integer idMeal=orderUser.getMeal().getId();
-       Integer idUser=orderUser.getUser().getId();
-      OrderKey orderKey=new OrderKey(id,idMeal,idUser);
-      orderUser.setIdOrder(orderKey);
-      Meal meal=mealService.findById(orderUser.getMeal().getId());
-      orderUser.setPrice(meal.getPrice()* orderUser.getQuantity());
+        Integer idMeal= dto.getMealId();
+        Integer idUser=dto.getUserId();
+        OrderKey orderKey=new OrderKey(id,idMeal,idUser);
+        OrderUser orderUser=OrderUserMapper.toEntity(dto);
+        orderUser.setIdOrder(orderKey);
+        Meal meal=mealService.findById(dto.getMealId());
+        User user=userService.findById(dto.getUserId());
+        orderUser.setUser(user);
+        orderUser.setMeal(meal);
+        orderUser.setPrice(meal.getPrice()* orderUser.getQuantity());
         orderUser.setValidation(Evalidation.PENDING);
-
         if(meal.getQuantity()!=0){
-          Integer qt=  meal.getQuantity()-orderUser.getQuantity();
-          meal.setQuantity(qt);
-          if(meal.getQuantity()==0){
-              meal.setAvailability(EAvailability.UNAVAILABLE);
-          }
+            Integer qt=  meal.getQuantity()-orderUser.getQuantity();
+            meal.setQuantity(qt);
+            if(meal.getQuantity()==0){
+                meal.setAvailability(EAvailability.UNAVAILABLE);
+            }
 
         }
         return orderUserRepository.save(orderUser);
