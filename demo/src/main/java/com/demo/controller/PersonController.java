@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -47,6 +48,25 @@ public class PersonController {
     @GetMapping("find/id/{username}")
     public Integer findIdByUsername(@PathVariable String username){
         return personService.findIdByUsername(username);
+    }
+
+    @GetMapping("admin/find/users/merchant")
+    public List<Person> findUsersAndMerchant(){
+        return personService.findUsersAndMerchant();
+    }
+    @DeleteMapping("admin/delete/account/{id}")
+    public void deletePerson(@PathVariable Integer id){
+        personService.deletePerson(id);
+    }
+
+    @PutMapping("update/account/{id}")
+    public Person updatePerson(@PathVariable Integer id,Person person){
+        return personService.updatePerson(id,person);
+    }
+
+    @GetMapping("find/{id}")
+    public Person findById(@PathVariable Integer id){
+        return personService.findById(id);
     }
 
 

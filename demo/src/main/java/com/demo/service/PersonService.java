@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PersonService {
 
@@ -41,6 +43,29 @@ public class PersonService {
 
     public Integer findIdByUsername(String username){
         return personRepository.findIdByUsername(username);
+    }
+
+    public List<Person> findUsersAndMerchant(){
+        return personRepository.findUsersAndMerchant();
+    }
+
+    public void deletePerson(Integer id){
+         personRepository.deleteById(id);
+    }
+
+    public Person updatePerson(Integer id,Person person){
+        Person person1=personRepository.findById(id).orElseThrow();
+        person1.setUsername(person.getUsername());
+        person1.setEmail(person.getEmail());
+        person1.setPassword(passwordEncoder.encode(person.getPassword()));
+        person1.setRole(person.getRole());
+
+        return personRepository.save(person1);
+
+    }
+
+    public Person findById(Integer id){
+        return personRepository.findById(id).orElseThrow();
     }
 
 
