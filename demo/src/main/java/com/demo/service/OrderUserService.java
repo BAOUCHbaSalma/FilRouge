@@ -1,11 +1,14 @@
 package com.demo.service;
 
+import com.demo.Mapper.OrderUserMapper;
+import com.demo.dto.OrderUserDto;
 import com.demo.model.*;
 import com.demo.repository.OrderUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderUserService {
@@ -51,7 +54,7 @@ public class OrderUserService {
     public OrderUser cancelCommande(OrderKey id){
         OrderUser orderUser=findById(id);
         if(orderUser.getValidation()==Evalidation.PENDING){
-            orderUser.setValidation(Evalidation.CANCEL);
+            orderUser.setValidation(Evalidation.CANCELLED);
             return orderUserRepository.save(orderUser);
 
         }else {
@@ -71,8 +74,17 @@ public class OrderUserService {
         return orderUserRepository.findAllByValidationEquals(Evalidation.VALIDATE);
     }
     public List<OrderUser> findOrderCancel(){
-        return orderUserRepository.findAllByValidationEquals(Evalidation.CANCEL);
+        return orderUserRepository.findAllByValidationEquals(Evalidation.CANCELLED);
     }
+
+//    public List<OrderUserDto> listRestaurantsAdmin(){
+//        List<Object[]> results = orderUserRepository.listRestaurantsAdmin();
+//
+//        // Utilisation du mapper manuel pour convertir les résultats
+//        return results.stream()
+//                .map(OrderUserMapper::toDto)
+//                .collect(Collectors.toList());
+//    }
 
 
 

@@ -5,6 +5,8 @@ import com.demo.repository.MerchantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MerchantService {
 
@@ -18,5 +20,8 @@ public class MerchantService {
 
     public Merchant addMerchant(Merchant merchant){
         return merchantRepository.save(merchant);
+    }
+    public List<Merchant> findAllMerchant(){
+        return merchantRepository.findAll();
     }
 }

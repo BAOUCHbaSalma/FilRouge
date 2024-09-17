@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.demo.dto.OrderUserDto;
 import com.demo.model.Restaurant;
 import com.demo.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,14 @@ public class RestaurantController {
     @PutMapping("merin/restaurants/{id}")
     public Restaurant updateRestaurant(@PathVariable Integer id,@RequestBody Restaurant restaurant){
         return restaurantService.updateRestaurant(id,restaurant);
+    }
+
+    @GetMapping("admin/restaurantsadmin")
+    public List<OrderUserDto> restaurantsAdmin(){
+        return  restaurantService.listRestaurantsAdmin();
+    }
+    @GetMapping("restaurant/{idr}")
+    public Restaurant findById(@PathVariable Integer idr){
+        return restaurantService.findById(idr);
     }
 }

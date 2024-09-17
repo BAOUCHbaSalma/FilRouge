@@ -12,34 +12,35 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
     @Autowired
-    private UserService userService;
-    @Autowired
-    private MerchantService merchantService;
-    @Autowired
-    private AdminService adminService;
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Person Registre(Person person){
-        person.setPassword(passwordEncoder.encode(person.getPassword()));
-        if (person.getRole()== Erole.MERCHANT){
-            return merchantService.addMerchant((Merchant) person);
-        }
-        else if (person.getRole()==Erole.USER) {
-            return userService.adduser((User) person);
+    public Person Signup(Person person){
+        if (person.getRole() == Erole.MERCHANT) {
+            Merchant merchant = new Merchant();
+            merchant.setUsername(person.getUsername());
+            merchant.setEmail(person.getEmail());
+            merchant.setPassword(passwordEncoder.encode(person.getPassword()));
+            merchant.setRole(person.getRole());
+            return personRepository.save(merchant);
 
+        } else if (person.getRole() == Erole.USER) {
+            User user = new User();
+            user.setUsername(person.getUsername());
+            user.setEmail(person.getEmail());
+            user.setPassword(passwordEncoder.encode(person.getPassword()));
+            user.setRole(person.getRole());
+            return personRepository.save(user);
         }
-        else if(person.getRole()==Erole.ADMIN){
-            return adminService.addAdmin((Admin) person);
-        }
-        else {
-            return null;
-        }
+        return person;
 
     }
 
     public Person findPersonByUsername(String username){
         return personRepository.findByUsername(username);
+    }
+
+    public Integer findIdByUsername(String username){
+        return personRepository.findIdByUsername(username);
     }
 
 

@@ -1,5 +1,7 @@
 package com.demo.service;
 
+import com.demo.Mapper.OrderUserMapper;
+import com.demo.dto.OrderUserDto;
 import com.demo.model.Merchant;
 import com.demo.model.Restaurant;
 import com.demo.repository.RestaurantRepository;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RestaurantService {
@@ -50,6 +53,15 @@ public class RestaurantService {
         restaurant1.setVille(restaurant.getVille());
 
         return restaurantRepository.save(restaurant1);
+    }
+
+        public List<OrderUserDto> listRestaurantsAdmin(){
+        List<Object[]> results = restaurantRepository.listRestaurantsAdmin();
+
+        // Utilisation du mapper manuel pour convertir les résultats
+        return results.stream()
+                .map(OrderUserMapper::toDto)
+                .collect(Collectors.toList());
     }
 
 

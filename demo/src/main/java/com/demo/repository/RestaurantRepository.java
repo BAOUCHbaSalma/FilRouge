@@ -17,5 +17,16 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
     );
 
     List<Restaurant> findAllByMerchant_Id(Integer id);
+
+    @Query(value = "SELECT r.id_restaurant AS Id, r.name AS Name, r.ville AS Ville, " +
+            "COALESCE(COUNT(CASE WHEN o.validation = 'VALIDATE' THEN 1 END), 0) AS repasLivres, " +
+            "COALESCE(COUNT(CASE WHEN o.validation = 'CANCELLED' THEN 1 END), 0) AS repasAnnules " +
+            "FROM restaurant r " +
+            "LEFT JOIN meal m ON m.restaurant_id = r.id_restaurant " +
+            "LEFT JOIN order_user o ON o.meal_id = m.id " +
+            "GROUP BY r.id_restaurant, r.name, r.ville",
+            nativeQuery = true)
+    List<Object[]> listRestaurantsAdmin();
+
     }
 

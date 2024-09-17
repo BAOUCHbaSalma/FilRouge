@@ -1,5 +1,5 @@
 package com.demo.model;
 
 public enum Evalidation {
-    PENDING,VALIDATE,CANCEL
+    PENDING,VALIDATE,CANCELLED
 }

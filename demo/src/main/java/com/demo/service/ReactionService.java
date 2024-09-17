@@ -25,4 +25,8 @@ public class ReactionService {
     public List<Reaction> findReactionMeal(Integer id){
             return reactionRepository.findAllByMeal_Id(id);
     }
+    public List<Reaction> findReactionUser(Integer id){
+        return reactionRepository.findAllByUser_Id(id);
+    }
+
 }

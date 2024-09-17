@@ -25,13 +25,13 @@ public class PersonController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/registre")
-    public Person Registre(@RequestBody Person person){
-        return personService.Registre(person);
+    public Person Signup(@RequestBody Person person){
+        return personService.Signup(person);
     }
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest person) {
+    public ResponseEntity<?> Login(@RequestBody LoginRequest person) {
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(person.getUsername(), person.getPassword())
@@ -43,6 +43,12 @@ public class PersonController {
         response.put("token", token);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("find/id/{username}")
+    public Integer findIdByUsername(@PathVariable String username){
+        return personService.findIdByUsername(username);
+    }
+
 
 
 

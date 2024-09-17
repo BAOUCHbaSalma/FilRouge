@@ -41,6 +41,7 @@ public class SecurityConfig  {
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/merin/**").hasAnyRole(Erole.MERCHANT.name(),Erole.ADMIN.name())
                                 .requestMatchers("/usein").hasAnyRole(Erole.ADMIN.name(),Erole.USER.name())
+                                .requestMatchers("/admin/**").hasRole(Erole.ADMIN.name())
                                 .anyRequest().authenticated()
 
                 )
