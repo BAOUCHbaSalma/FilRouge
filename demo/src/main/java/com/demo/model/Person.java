@@ -28,8 +28,19 @@ public class Person implements UserDetails {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Column
+    private String img;
     @Enumerated(EnumType.STRING)
     private Erole role;
+
+    public Person(String username, String email, String password, String img, Erole role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.img = img;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (role == null) {

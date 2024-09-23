@@ -23,6 +23,10 @@ public class ReactionController {
     public List<Reaction> reactionUser(@PathVariable Integer id){
         return reactionService.findReactionUser(id);
     }
+    @GetMapping("reactions/meal/{id}")
+    public List<Reaction> reactionmeal(@PathVariable Integer id){
+        return reactionService.findReactionMeal(id);
+    }
     
 
 }

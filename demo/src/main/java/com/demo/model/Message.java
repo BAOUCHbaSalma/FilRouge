@@ -26,4 +26,10 @@ public class Message {
     @JoinColumn(name = "merchantId")
     private Merchant merchant;
 
+    public Message(String subject, String content, User user, Merchant merchant) {
+        this.subject = subject;
+        this.content = content;
+        this.user = user;
+        this.merchant = merchant;
+    }
 }

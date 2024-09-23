@@ -36,4 +36,10 @@ public class Restaurant {
     @JsonIgnore
     private List<Meal> mealList;
 
+    public Restaurant(String name, String ville, double latitude, double longitude) {
+        this.name = name;
+        this.ville = ville;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }

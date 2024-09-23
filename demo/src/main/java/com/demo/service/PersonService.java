@@ -21,6 +21,7 @@ public class PersonService {
             Merchant merchant = new Merchant();
             merchant.setUsername(person.getUsername());
             merchant.setEmail(person.getEmail());
+            merchant.setImg(person.getImg());
             merchant.setPassword(passwordEncoder.encode(person.getPassword()));
             merchant.setRole(person.getRole());
             return personRepository.save(merchant);
@@ -29,6 +30,7 @@ public class PersonService {
             User user = new User();
             user.setUsername(person.getUsername());
             user.setEmail(person.getEmail());
+            user.setImg(person.getImg());
             user.setPassword(passwordEncoder.encode(person.getPassword()));
             user.setRole(person.getRole());
             return personRepository.save(user);

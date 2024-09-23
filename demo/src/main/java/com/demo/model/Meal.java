@@ -41,4 +41,11 @@ public class Meal {
     @JsonManagedReference
     private List<Reaction> reactionList;
 
+    public Meal(String name, String picture, Integer price, Integer quantity) {
+        this.name = name;
+        this.picture = picture;
+        this.price = price;
+        this.quantity = quantity;
+
+    }
 }
