@@ -60,7 +60,7 @@ public class PersonController {
     }
 
     @PutMapping("update/account/{id}")
-    public Person updatePerson(@PathVariable Integer id,Person person){
+    public Person updatePerson(@PathVariable Integer id,@RequestBody Person person){
         return personService.updatePerson(id,person);
     }
 

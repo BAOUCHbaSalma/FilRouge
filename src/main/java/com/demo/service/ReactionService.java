@@ -9,24 +9,18 @@ import java.util.List;
 
 @Service
 public class ReactionService {
-
     @Autowired
     private ReactionRepository reactionRepository;
-
     public Reaction addReaction(Reaction reaction){
         return reactionRepository.save(reaction);
     }
-
-
     public List<Reaction> findAll(){
         return reactionRepository.findAll();
     }
-
     public List<Reaction> findReactionMeal(Integer id){
             return reactionRepository.findAllByMeal_Id(id);
     }
     public List<Reaction> findReactionUser(Integer id){
         return reactionRepository.findAllByUser_Id(id);
     }
-
 }

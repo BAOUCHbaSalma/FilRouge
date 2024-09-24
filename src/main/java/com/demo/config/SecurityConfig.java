@@ -1,6 +1,5 @@
 package com.demo.config;
 
-
 import com.demo.model.Erole;
 import com.demo.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -12,23 +11,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig  {
-
     private final UserDetailsServiceImpl userDetailsService;
-
     public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         System.out.println("filtercjain///////////");
@@ -49,7 +42,6 @@ public class SecurityConfig  {
         http.addFilterBefore(new JwtAuthorizationFilter((userDetailsService)), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         System.out.println("///////////athhmanager");
@@ -58,4 +50,3 @@ public class SecurityConfig  {
         return authenticationManagerBuilder.build();
     }
 }
-

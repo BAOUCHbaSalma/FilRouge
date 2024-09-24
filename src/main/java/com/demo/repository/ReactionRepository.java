@@ -8,5 +8,8 @@ import java.util.List;
 public interface ReactionRepository extends JpaRepository<Reaction,Integer> {
 
     List<Reaction> findAllByMeal_Id(Integer id);
-    List<Reaction> findAllByUser_Id(Integer id);
+    List<Reaction> findAllByUser_Id(Integer id);//Pour l'affichage de toutes les reactions d'un user
+
+
+
 }
