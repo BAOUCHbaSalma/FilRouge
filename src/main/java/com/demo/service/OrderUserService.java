@@ -1,7 +1,6 @@
 package com.demo.service;
 
-import com.demo.Mapper.OrderUserMapper;
-import com.demo.dto.OrderUserDto;
+import com.demo.mapper.OrderUserMapper;
 import com.demo.dto.OrderUserInsertionDto;
 import com.demo.model.*;
 import com.demo.repository.OrderUserRepository;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderUserService {
@@ -21,28 +19,6 @@ public class OrderUserService {
     @Autowired
     private UserService userService;
 
-
-
-//    public OrderUser passeCommande(OrderUser orderUser){
-//        Integer id=orderUserRepository.findMaxOrderId()+1;
-//       Integer idMeal=orderUser.getMeal().getId();
-//       Integer idUser=orderUser.getUser().getId();
-//      OrderKey orderKey=new OrderKey(id,idMeal,idUser);
-//      orderUser.setIdOrder(orderKey);
-//      Meal meal=mealService.findById(orderUser.getMeal().getId());
-//      orderUser.setPrice(meal.getPrice()* orderUser.getQuantity());
-//        orderUser.setValidation(Evalidation.PENDING);
-//
-//        if(meal.getQuantity()!=0){
-//          Integer qt=  meal.getQuantity()-orderUser.getQuantity();
-//          meal.setQuantity(qt);
-//          if(meal.getQuantity()==0){
-//              meal.setAvailability(EAvailability.UNAVAILABLE);
-//          }
-//
-//        }
-//        return orderUserRepository.save(orderUser);
-//    }
 
     public OrderUser passeCommande(OrderUserInsertionDto dto){
 
@@ -105,14 +81,22 @@ public class OrderUserService {
         return orderUserRepository.findAllByValidationEquals(Evalidation.CANCELLED);
     }
 
-//    public List<OrderUserDto> listRestaurantsAdmin(){
-//        List<Object[]> results = orderUserRepository.listRestaurantsAdmin();
-//
-//        // Utilisation du mapper manuel pour convertir les résultats
-//        return results.stream()
-//                .map(OrderUserMapper::toDto)
-//                .collect(Collectors.toList());
-//    }
+    public List<OrderUser> findOrdersByIdRestaurant(Integer idRestaurant){
+        return orderUserRepository.findByMeal_Restaurant_IdRestaurant(idRestaurant);
+    }
+
+    public List<OrderUser> findOrdersPending(Integer idRestaurant){
+        return orderUserRepository.findByRestaurantAndValidation(Evalidation.PENDING,idRestaurant);
+    }
+
+    public List<OrderUser> findOrdersValidate(Integer idRestaurant){
+        return orderUserRepository.findByRestaurantAndValidation(Evalidation.VALIDATE,idRestaurant);
+    }
+    public List<OrderUser> findOrdersCanceled(Integer idRestaurant){
+        return orderUserRepository.findByRestaurantAndValidation(Evalidation.CANCELLED,idRestaurant);
+    }
+
+
 
 
 

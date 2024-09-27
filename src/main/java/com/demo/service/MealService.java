@@ -1,6 +1,9 @@
 package com.demo.service;
 
 
+import com.demo.dto.MealIsertionModificationDto;
+import com.demo.mapper.MealMapper;
+import com.demo.model.EAvailability;
 import com.demo.model.Meal;
 import com.demo.model.Reaction;
 import com.demo.model.Restaurant;
@@ -51,14 +54,13 @@ public class MealService {
         return mealRepository.findById(idMeal).orElseThrow();
     }
 
-    public Meal updateMeal(Integer idMeal,Meal meal){
-        Meal meal1=findById(idMeal);
-        meal1.setName(meal.getName());
-        meal1.setPrice(meal.getPrice());
-        meal1.setPicture(meal.getPicture());
-        meal1.setQuantity(meal.getQuantity());
-        meal1.setAvailability(meal.getAvailability());
-        return mealRepository.save(meal1);
+    public Meal updateMeal(Integer idMeal, MealIsertionModificationDto mealIsertionModificationDto){
+        Meal meal=findById(idMeal);
+        MealMapper.updateMealFromDto(mealIsertionModificationDto,meal);
+        if(mealIsertionModificationDto.getQuantity()>0){
+            meal.setAvailability(EAvailability.AVAILABLE);
+        }
+        return mealRepository.save(meal);
 
 
     }

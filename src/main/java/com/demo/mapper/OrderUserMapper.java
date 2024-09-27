@@ -1,8 +1,7 @@
-package com.demo.Mapper;
+package com.demo.mapper;
 
 import com.demo.dto.OrderUserDto;
 import com.demo.dto.OrderUserInsertionDto;
-import com.demo.model.OrderKey;
 import com.demo.model.OrderUser;
 
 public class OrderUserMapper {

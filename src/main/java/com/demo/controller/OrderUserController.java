@@ -69,6 +69,26 @@ public OrderUser validationCommande(@PathVariable Integer orderId, @PathVariable
         return orderUserService.findOrderCancel();
     }
 
+    @GetMapping("merin/orders/restaurant/{id}")
+    public List<OrderUser> findByOrdersRestaurant(@PathVariable Integer id){
+        return orderUserService.findOrdersByIdRestaurant(id);
+    }
+
+    @GetMapping("merin/orders/pending/restaurant/{id}")
+    public List<OrderUser> findByOrdersPending(@PathVariable Integer id){
+        return orderUserService.findOrdersPending(id);
+    }
+
+    @GetMapping("merin/orders/validate/restaurant/{id}")
+    public List<OrderUser> findByOrdersValidate(@PathVariable Integer id){
+        return orderUserService.findOrdersValidate(id);
+    }
+
+    @GetMapping("merin/orders/canceled/restaurant/{id}")
+    public List<OrderUser> findByOrdersCanceled(@PathVariable Integer id){
+        return orderUserService.findOrdersCanceled(id);
+    }
+
 
 
 

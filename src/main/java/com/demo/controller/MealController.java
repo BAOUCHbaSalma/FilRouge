@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.demo.dto.MealIsertionModificationDto;
 import com.demo.model.Meal;
 import com.demo.service.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class MealController {
     }
 
     @PutMapping("merin/meals/{id}")
-    public Meal updateMeal(@PathVariable Integer id,@RequestBody Meal meal){
-        return mealService.updateMeal(id,meal);
+    public Meal updateMeal(@PathVariable Integer id, @RequestBody MealIsertionModificationDto mealIsertionModificationDto){
+        return mealService.updateMeal(id,mealIsertionModificationDto);
     }
 }

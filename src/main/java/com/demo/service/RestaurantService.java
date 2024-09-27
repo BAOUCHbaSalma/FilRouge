@@ -1,6 +1,6 @@
 package com.demo.service;
 
-import com.demo.Mapper.OrderUserMapper;
+import com.demo.mapper.OrderUserMapper;
 import com.demo.dto.OrderUserDto;
 import com.demo.model.Merchant;
 import com.demo.model.Restaurant;
