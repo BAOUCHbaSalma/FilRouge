@@ -13,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrderUser {
    @EmbeddedId
+
     private OrderKey idOrder;
 
    @ManyToOne

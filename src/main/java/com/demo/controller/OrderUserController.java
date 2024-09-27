@@ -37,14 +37,14 @@ public class OrderUserController {
 //    public OrderUser cancelCommande(@PathVariable OrderKey id){
 //        return orderUserService.cancelCommande(id);
 //    }
-@GetMapping("merchant/orders/validate/{orderId}/{mealId}/{userId}")
-public OrderUser validationCommande(@PathVariable Integer orderId, @PathVariable Integer mealId, @PathVariable Integer userId) {
-    OrderKey id = new OrderKey(orderId, mealId, userId);
-    return orderUserService.validationCommande(id);
-}
+    @GetMapping("/merin/orders/validate")
+    public OrderUser validationCommande(@RequestParam Integer orderId, @RequestParam Integer mealId, @RequestParam Integer userId) {
+        OrderKey id = new OrderKey(orderId, mealId, userId);
+        return orderUserService.validationCommande(id);
+    }
 
-    @GetMapping("merin/orders/cancel/{orderId}/{mealId}/{userId}")
-    public OrderUser cancelCommande(@PathVariable Integer orderId, @PathVariable Integer mealId, @PathVariable Integer userId) {
+    @GetMapping("/merin/orders/cancel")
+    public OrderUser cancelCommande(@RequestParam Integer orderId, @RequestParam Integer mealId, @RequestParam Integer userId) {
         OrderKey id = new OrderKey(orderId, mealId, userId);
         return orderUserService.cancelCommande(id);
     }

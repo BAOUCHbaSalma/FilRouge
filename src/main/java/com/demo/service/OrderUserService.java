@@ -82,11 +82,15 @@ public class OrderUserService {
     }
 
     public List<OrderUser> findOrdersByIdRestaurant(Integer idRestaurant){
-        return orderUserRepository.findByMeal_Restaurant_IdRestaurant(idRestaurant);
+       List<OrderUser> oders= orderUserRepository.findByMeal_Restaurant_IdRestaurant(idRestaurant);
+       oders.forEach(orderUser -> System.out.println("/////// "+orderUser.getIdOrder().toString()));
+       return oders;
     }
 
     public List<OrderUser> findOrdersPending(Integer idRestaurant){
-        return orderUserRepository.findByRestaurantAndValidation(Evalidation.PENDING,idRestaurant);
+        List<OrderUser> orderUsers= orderUserRepository.findByRestaurantAndValidation(Evalidation.PENDING,idRestaurant);
+        orderUsers.forEach(orderUser -> System.out.println("mmmmmmmmmmmmm ////// "+orderUser.getIdOrder().toString()));
+        return orderUsers;
     }
 
     public List<OrderUser> findOrdersValidate(Integer idRestaurant){

@@ -1,7 +1,9 @@
 package com.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -9,11 +11,13 @@ import java.util.Objects;
 @Embeddable
 public class OrderKey implements Serializable {
 
-    @Column
+    @JsonProperty("orderId")
     private Integer orderId;
-    @Column
+
+    @JsonProperty("mealId")
     private Integer mealId;
-    @Column
+
+    @JsonProperty("userId")
     private Integer userId;
 
     public OrderKey(Integer orderId, Integer mealId, Integer userId) {
