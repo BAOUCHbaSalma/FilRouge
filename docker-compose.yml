@@ -1,23 +1,26 @@
-version: '3.8'
+version: '3.4'
 services:
-  app:
-    image: doowaste-image
+  doowaste-app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    environment:
-       - SPRING_DATASOURCE_URL=jdbc:mysql://doowastedb:3306/doowaste?createDatabaseIfNotExist=true
-       - SPRING_DATASOURCE_USERNAME=root
-       - SPRING_DATASOURCE_PASSWORD=
     depends_on:
       - doowastedb
+    networks:
+      - doowaste-network
 
   doowastedb:
-    image: mysql:latest
+    image: "mysql:latest"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
       - MYSQL_DATABASE=doowaste
     ports:
-      - "3306:3306"
+      - "3307:3306"
+    networks:
+      - doowaste-network
+
+networks:
+  doowaste-network:
+    driver: bridge
