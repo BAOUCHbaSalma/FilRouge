@@ -69,6 +69,14 @@ public class PersonController {
         return personService.findById(id);
     }
 
+    @GetMapping("usein/find/merchant")
+    public List<Person> findMerchant(){
+        return personService.findMerchant();
+    }
+    @GetMapping("merin/find/user")
+    public List<Person> findUtilisateur(){
+        return personService.findUser();
+    }
 
 
 

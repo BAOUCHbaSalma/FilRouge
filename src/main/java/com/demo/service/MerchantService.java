@@ -5,6 +5,7 @@ import com.demo.repository.MerchantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,6 +20,8 @@ public class MerchantService {
     }
 
     public Merchant addMerchant(Merchant merchant){
+        merchant.setDate(LocalDate.now());
+
         return merchantRepository.save(merchant);
     }
     public List<Merchant> findAllMerchant(){

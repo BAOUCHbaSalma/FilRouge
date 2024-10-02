@@ -70,5 +70,12 @@ public class PersonService {
         return personRepository.findById(id).orElseThrow();
     }
 
+    public List<Person> findMerchant(){
+        return personRepository.findByRole(Erole.MERCHANT);
+    }
+    public List<Person> findUser(){
+        return personRepository.findByRole(Erole.USER);
+    }
+
 
 }

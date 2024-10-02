@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class Person implements UserDetails {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Column
+    private LocalDate date;
     @Column
     private String img;
     @Enumerated(EnumType.STRING)

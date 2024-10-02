@@ -3,10 +3,12 @@ package com.demo.service;
 import com.demo.mapper.OrderUserMapper;
 import com.demo.dto.OrderUserInsertionDto;
 import com.demo.model.*;
+import com.demo.repository.MealRepository;
 import com.demo.repository.OrderUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,6 +20,8 @@ public class OrderUserService {
     private MealService mealService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private MealRepository mealRepository;
 
 
     public OrderUser passeCommande(OrderUserInsertionDto dto){
@@ -32,6 +36,7 @@ public class OrderUserService {
         User user=userService.findById(dto.getUserId());
         orderUser.setUser(user);
         orderUser.setMeal(meal);
+        orderUser.setDate(LocalDate.now());
         orderUser.setPrice(meal.getPrice()* orderUser.getQuantity());
         orderUser.setValidation(Evalidation.PENDING);
         if(meal.getQuantity()!=0){
@@ -56,9 +61,15 @@ public class OrderUserService {
 
     }
     public OrderUser cancelCommande(OrderKey id){
+        System.out.println("id/////////////////////////////////"+id);
         OrderUser orderUser=findById(id);
+        Meal meal=mealService.findById(orderUser.getMeal().getId());
         if(orderUser.getValidation()==Evalidation.PENDING){
             orderUser.setValidation(Evalidation.CANCELLED);
+            meal.setQuantity(meal.getQuantity() + orderUser.getQuantity());
+            meal.setAvailability(EAvailability.AVAILABLE);
+            mealRepository.save(meal);
+
             return orderUserRepository.save(orderUser);
 
         }else {
