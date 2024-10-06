@@ -1,5 +1,7 @@
 package com.demo.controller;
 
+import com.demo.dto.MessageMerchantDto;
+import com.demo.dto.MessageUserDto;
 import com.demo.model.Message;
 import com.demo.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,21 @@ public class MessageController {
         return messageService.findAllByMerchant(id);
     }
 
-    @PostMapping("messages")
-    public Message sendMessage(@RequestBody Message message){
-        return messageService.addMessage(message);
+    @PostMapping("user/messages")
+    public Message sendMessageToMerchant(@RequestBody MessageUserDto message){
+        return messageService.sendMessageToMerchant(message);
+    }
+
+    @PostMapping("merchant/messages/{id}")
+    public Message sendMessageToUser(@PathVariable Integer id,@RequestBody MessageMerchantDto message){
+        System.out.println("//////////id"+id);
+        System.out.println("/////merchantmessage"+message.getContentMerchant());
+        System.out.println("/////merchantmessage"+message.getSubjectMerchant());
+        return messageService.sendMessageToUser(id,message);
+    }
+
+    @GetMapping("meruser/message/{id}")
+    public Message messageDetails(@PathVariable Integer id){
+        return messageService.findById(id);
     }
 }

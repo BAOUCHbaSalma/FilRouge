@@ -16,9 +16,13 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column
-    private String subject;
+    private String subjectUser;
     @Column
-    private String content;
+    private String contentUser;
+    @Column
+    private String subjectMerchant;
+    @Column
+    private String contentMerchant;
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
@@ -26,9 +30,9 @@ public class Message {
     @JoinColumn(name = "merchantId")
     private Merchant merchant;
 
-    public Message(String subject, String content, User user, Merchant merchant) {
-        this.subject = subject;
-        this.content = content;
+    public Message(String subjectUser, String contentUser, User user, Merchant merchant) {
+        this.subjectUser = subjectUser;
+        this.contentUser = contentUser;
         this.user = user;
         this.merchant = merchant;
     }

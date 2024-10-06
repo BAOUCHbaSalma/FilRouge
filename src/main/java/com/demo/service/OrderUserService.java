@@ -5,6 +5,7 @@ import com.demo.dto.OrderUserInsertionDto;
 import com.demo.model.*;
 import com.demo.repository.MealRepository;
 import com.demo.repository.OrderUserRepository;
+import org.hibernate.query.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,6 @@ public class OrderUserService {
 
 
     public OrderUser passeCommande(OrderUserInsertionDto dto){
-
         Integer id=orderUserRepository.findMaxOrderId()+1;
         Integer idMeal= dto.getMealId();
         Integer idUser=dto.getUserId();
@@ -45,7 +45,6 @@ public class OrderUserService {
             if(meal.getQuantity()==0){
                 meal.setAvailability(EAvailability.UNAVAILABLE);
             }
-
         }
         return orderUserRepository.save(orderUser);
     }
@@ -61,7 +60,6 @@ public class OrderUserService {
 
     }
     public OrderUser cancelCommande(OrderKey id){
-        System.out.println("id/////////////////////////////////"+id);
         OrderUser orderUser=findById(id);
         Meal meal=mealService.findById(orderUser.getMeal().getId());
         if(orderUser.getValidation()==Evalidation.PENDING){
@@ -75,7 +73,6 @@ public class OrderUserService {
         }else {
             return orderUser;
         }
-
     }
     public List<OrderUser> findAll(){
         return orderUserRepository.findAll();
@@ -110,10 +107,7 @@ public class OrderUserService {
     public List<OrderUser> findOrdersCanceled(Integer idRestaurant){
         return orderUserRepository.findByRestaurantAndValidation(Evalidation.CANCELLED,idRestaurant);
     }
-
-
-
-
-
-
+    public List<OrderUser> findByIdUser(Integer id){
+        return orderUserRepository.findByUser_Id(id);
+    }
 }

@@ -36,14 +36,7 @@ public class MealService {
     }
 
     public List<Meal> findAll(){
-//       List<Meal> mealList=mealRepository.findAll();
-//       for (Meal meal:mealList){
-//           List<Reaction> reaction=reactionService.findReactionMeal(meal.getId());
-//           meal.setReactionList(reaction);
-//       }
-//       return mealList;
         return mealRepository.findAll();
-
     }
 
     public void deleteMeal(Integer id){
@@ -61,8 +54,8 @@ public class MealService {
             meal.setAvailability(EAvailability.AVAILABLE);
         }
         return mealRepository.save(meal);
-
-
     }
-
+    public List<Meal> findMeals(){
+        return mealRepository.findByMealAvailability(EAvailability.AVAILABLE);
+    }
 }

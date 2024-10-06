@@ -78,6 +78,4 @@ public class PersonController {
         return personService.findUser();
     }
 
-
-
 }

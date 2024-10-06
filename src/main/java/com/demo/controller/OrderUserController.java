@@ -91,12 +91,8 @@ public class OrderUserController {
     public List<OrderUser> findByOrdersCanceled(@PathVariable Integer id){
         return orderUserService.findOrdersCanceled(id);
     }
-
-
-
-
-
-
-
-
+    @GetMapping("usein/orders/all/{id}")
+    public List<OrderUser> findByIdUser(@PathVariable Integer id){
+        return orderUserService.findByIdUser(id);
+    }
 }

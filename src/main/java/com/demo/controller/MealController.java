@@ -43,4 +43,8 @@ public class MealController {
     public Meal updateMeal(@PathVariable Integer id, @RequestBody MealIsertionModificationDto mealIsertionModificationDto){
         return mealService.updateMeal(id,mealIsertionModificationDto);
     }
+    @GetMapping("user/meals")
+    public List<Meal> meals(){
+        return mealService.findMeals();
+    }
 }

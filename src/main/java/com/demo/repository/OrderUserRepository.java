@@ -18,5 +18,6 @@ public interface OrderUserRepository extends JpaRepository<OrderUser, OrderKey> 
     List<OrderUser> findByMeal_Restaurant_IdRestaurant(Integer idRestaurant);
     @Query("select o from OrderUser o inner join Meal m on m.id = o.meal.id inner join Restaurant r on r.idRestaurant = m.restaurant.idRestaurant where o.validation = :validation and r.idRestaurant = :idRestaurant")
     List<OrderUser> findByRestaurantAndValidation(@Param("validation") Evalidation validation, @Param("idRestaurant") Integer idRestaurant);
+    List<OrderUser> findByUser_Id(Integer id);
 
 }
