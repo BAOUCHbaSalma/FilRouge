@@ -9,9 +9,13 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+
+
 public interface ReactionRepository extends JpaRepository<Reaction,Integer> {
 
     List<Reaction> findAllByMeal_Id(Integer id);
     List<Reaction> findAllByUser_Id(Integer id);
+    @Query("SELECT AVG(r.likes) FROM Reaction r where r.meal.id= :id")
+    Integer moyenneReaction(@Param("id") Integer id);
 
 }
