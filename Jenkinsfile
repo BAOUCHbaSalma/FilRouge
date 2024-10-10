@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials-doowaste')
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials')
         SONARQUBE_TOKEN = 'squ_f6291688a2b6b46dba09903e0bb6b5490c3f7cd5'
         SONARQUBE_SERVER = 'http://localhost:9000'
     }
