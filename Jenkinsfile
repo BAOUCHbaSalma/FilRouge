@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'SonarQubeScanner'
-                    bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=user-service -Dsonar.sources=. -Dsonar.host.url=${SONARQUBE_SERVER} -Dsonar.login=${SONARQUBE_TOKEN} -Dsonar.java.binaries=target/classes"
+                    bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=doowaste -Dsonar.sources=. -Dsonar.host.url=${SONARQUBE_SERVER} -Dsonar.login=${SONARQUBE_TOKEN} -Dsonar.java.binaries=target/classes"
                 }
             }
         }
