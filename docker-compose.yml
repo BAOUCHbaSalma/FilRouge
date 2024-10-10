@@ -1,9 +1,7 @@
 version: '3.4'
 services:
   doowaste-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: salmaba/doowaste:${TAG_VERSION:-latest}
     ports:
       - "8080:8080"
     depends_on:
@@ -17,7 +15,7 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
       - MYSQL_DATABASE=doowaste
     ports:
-      - "3307:3306"
+      - "3306:3306"
     networks:
       - doowaste-network
     volumes:
