@@ -38,14 +38,16 @@ pipeline {
             parallel {
                 stage('Build Docker & Push for doowaste') {
                     steps {
-                            script {
-                                def dockerImage = docker.build("salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}")
-                                docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
-                                    dockerImage.push()
-                                }
+                        script {
+                            def dockerImage = docker.build("salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}")
+                            docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+                                dockerImage.push()
                             }
+                        }
                     }
                 }
+            }
+        }
 
         stage('Deploy with Docker Compose') {
             steps {
@@ -53,5 +55,4 @@ pipeline {
             }
         }
     }
-
 }
