@@ -38,11 +38,9 @@ pipeline {
         stage('Build Docker Images & Push') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        def dockerImage = docker.build("salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}")
-                        docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_USER}:${DOCKER_PASS}") {
-                            dockerImage.push()
-                        }
+                    def dockerImage = docker.build("salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}")
+                    docker.withRegistry('https://index.docker.io/v1/','docker-hub-credentials') {
+                        dockerImage.push()
                     }
                 }
             }
