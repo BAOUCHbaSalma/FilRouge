@@ -1,19 +1,23 @@
-version: '3.4'
+version: '3.8'
 services:
   doowaste-app:
-    image: salmaba/doowaste:${TAG_VERSION:-latest}
+    image: salmaba/doowaste:latest
     ports:
       - "8080:8080"
     depends_on:
       - doowastedb
     networks:
       - doowaste-network
+    deploy:
+      restart_policy:
+        condition: on-failure
 
   doowastedb:
     image: "mysql:latest"
+    restart: always
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=true
-      - MYSQL_DATABASE=doowaste
+        MYSQL_DATABASE: doowaste
+        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "3306:3306"
     networks:
