@@ -5,6 +5,8 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials')
         SONARQUBE_TOKEN = 'squ_f6291688a2b6b46dba09903e0bb6b5490c3f7cd5'
         SONARQUBE_SERVER = 'http://localhost:9000'
+         DOCKERHUB_USERNAME = 'salmaba'
+         DOCKERHUB_PASSWORD ='dckr_pat_tzfk94fhfU1ws0xQ9FJWTHY3SLM'
     }
 
     tools {
@@ -40,7 +42,7 @@ pipeline {
                     steps {
                         script {
                             def dockerImage = docker.build("salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}")
-                            docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+                            docker.withRegistry('https://index.docker.io/v1/', ${DOCKERHUB_USERNAME}:${DOCKERHUB_PASSWORD}) {
                                 dockerImage.push()
                             }
                         }
