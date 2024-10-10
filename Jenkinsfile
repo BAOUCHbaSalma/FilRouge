@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                bat 'mvn clean install'
+                bat 'mvn clean package'
                 bat 'mvn test'
             }
         }
@@ -34,37 +34,18 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Lister les fichiers avant la construction
-                    bat 'dir' // Pour Windows
-                    bat 'mvn clean package' // Assurez-vous que le JAR est construit
-
-                    def dockerImage = docker.build("salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}")
-                    bat 'docker images' // Afficher les images après la construction
-
-                    // Vérifiez si l'image a été construite
-                    if (dockerImage) {
-                        echo "Image Docker construite avec succès."
-                    } else {
-                        error "Échec de la construction de l'image Docker."
+        stage('Build and Push Docker Images') {
+            parallel {
+                stage('Build Docker & Push for doowaste') {
+                    steps {
+                            script {
+                                def dockerImage = docker.build("salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}")
+                                docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+                                    dockerImage.push()
+                                }
+                            }
                     }
                 }
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
-                        def dockerImage = "salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}"
-                        echo "Pousser l'image Docker ${dockerImage} vers Docker Hub."
-                        docker.image(dockerImage).push()
-                    }
-                }
-            }
-        }
 
         stage('Deploy with Docker Compose') {
             steps {
@@ -73,15 +54,4 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            echo "Pipeline exécuté avec succès !"
-        }
-        failure {
-            echo "Échec du pipeline, vérifiez les logs."
-        }
-        always {
-            cleanWs() // Nettoyer l'espace de travail
-        }
-    }
 }
