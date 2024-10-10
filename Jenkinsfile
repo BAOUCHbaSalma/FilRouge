@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials')
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials-doowaste')
         SONARQUBE_TOKEN = 'squ_f6291688a2b6b46dba09903e0bb6b5490c3f7cd5'
         SONARQUBE_SERVER = 'http://localhost:9000'
     }
@@ -34,16 +34,12 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Images') {
-            parallel {
-                stage('Build Docker & Push for doowaste') {
-                    steps {
-                        script {
-                            def dockerImage = docker.build("salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}")
-                            docker.withRegistry('https://index.docker.io/v1/',  'salmaba:dckr_pat_tzfk94fhfU1ws0xQ9FJWTHY3SLM') {
-                                dockerImage.push()
-                            }
-                        }
+        stage('Build Docker Images & Push') {
+            steps {
+                script {
+                    def dockerImage = docker.build("salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}")
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+                        dockerImage.push()
                     }
                 }
             }
