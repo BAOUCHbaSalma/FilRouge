@@ -42,7 +42,7 @@ pipeline {
                     steps {
                         script {
                             def dockerImage = docker.build("salmaba/doowaste:${env.TAG_VERSION ?: 'latest'}")
-                            docker.withRegistry('https://index.docker.io/v1/', ${DOCKERHUB_USERNAME}:${DOCKERHUB_PASSWORD}) {
+                            docker.withRegistry('https://index.docker.io/v1/',  "${DOCKERHUB_USERNAME}:${DOCKERHUB_PASSWORD}") {
                                 dockerImage.push()
                             }
                         }
