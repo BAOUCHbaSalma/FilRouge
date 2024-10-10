@@ -20,7 +20,11 @@ services:
       - "3307:3306"
     networks:
       - doowaste-network
+    volumes:
+      - mysql-data:/var/lib/mysql
 
 networks:
   doowaste-network:
     driver: bridge
+volumes:
+  mysql-data:
